@@ -1,0 +1,16 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    clear: both;
+}
+
+.container {
+    margin: 25px auto;
+}
