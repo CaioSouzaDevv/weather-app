@@ -1,16 +1,181 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+
+/* header components */
+.settings {
+    background-color: var(--primary-color);
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 20px 30px;
+    gap: 10px;
+    color: #fff;
+    border-radius: 10px;
+}
+.settings .settings__icon {
+
+}
+/* end header components */
+
+
+/* today styles */
+.card-today {
+    padding: 70px 10px;
+    position: relative;
+    background-image: url(../assets/images/bg-today-large.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    border-radius: 20px;
+}
+.card-today .card-today__temperature {
+    display: flex;
+}
+.card-today .card-today__temperature img{
+    width: 120px;
+    object-fit: contain;
+}
+.card-today .card-today__temperature span{
+    color: #fff;
+    
 }
 
-.wrapper {
-    width: 100%;
-    max-width: 1280px;
-    margin: 0 auto;
-    clear: both;
+/* End today styles */
+
+
+/* =========================
+   style.css — Weather Now EXACT
+   BEM + Bootstrap overrides
+   ========================= */
+
+/* Variables */
+:root{
+  --bg: #070826;         /* page background */
+  --panel: #0f1230;      /* card background */
+  --muted: #98a0b0;      /* secondary text */
+  --accent: #6a5df6;     /* purple-blue accent */
+  --card-glass: rgba(255,255,255,0.03);
 }
 
-.container {
-    margin: 25px auto;
+/* Global reset */
+* { box-sizing: border-box; }
+html,body { height: 100%; }
+body {
+  margin:0;
+  font-family: Inter, "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial;
+  background: var(--bg);
+  color: #e8eefb;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.35;
+}
+
+/* container width */
+.container { max-width:1180px; }
+
+/* Header */
+.site-header__inner { margin-top: 8px; margin-bottom: 8px; }
+.site-header__title { color:#fff; font-size:1.05rem; }
+.site-header__input {
+  min-width: 420px;
+  border-radius: 14px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.03);
+}
+.site-header__btn-search { border-radius: 12px; }
+
+/* MAIN intro */
+.site-main__headline { font-size: 2.2rem; font-weight:700; color:#f8fbff; }
+
+/* TODAY large card */
+.today {
+  background: linear-gradient(135deg, rgba(106,93,246,0.12), rgba(24,24,50,0.55));
+  border-radius: 18px;
+  box-shadow: 0 12px 40px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.03);
+  overflow:hidden;
+  position:relative;
+}
+.today__bg {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0.95;
+  filter: saturate(1.05);
+}
+.today__content { position:relative; z-index:2; padding:28px; }
+
+/* location & date */
+.today__location { font-size:1.25rem; margin:0; color:#fff; }
+.today__date { color: var(--muted); margin:0; }
+
+/* temperature */
+.today__temp .display-1 { font-size:4.5rem; line-height:0.9; color:#fff; }
+
+/* stat cards inside main */
+.stat {
+  background: rgba(255,255,255,0.02);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 6px 18px rgba(2,6,23,0.45);
+}
+.stat__label { color: var(--muted); }
+.stat__value { color:#fff; }
+
+/* daily list */
+.daily__list { padding-bottom:6px; }
+.day {
+  min-width:84px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.03);
+  padding:12px;
+  box-shadow: 0 8px 20px rgba(2,6,23,0.45);
+}
+
+/* HOURLY SIDEBAR */
+.hourly {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.03);
+  padding: 18px;
+}
+.hourly__list { margin:0; padding:0; }
+.hourly__item {
+  background: rgba(255,255,255,0.02);
+  border-radius: 12px;
+  margin-bottom:10px;
+  padding:10px 12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border:1px solid rgba(255,255,255,0.02);
+}
+.hourly__item time { color: var(--muted); }
+
+/* make the hourly column scrollable if needed */
+.hourly { max-height: 560px; overflow:auto; padding-right:12px; }
+
+/* small tweaks */
+.card { background: transparent; border:0; }
+.btn-primary {
+  background: linear-gradient(90deg, var(--accent), #4b6aff);
+  border:none;
+  border-radius:12px;
+  padding:10px 18px;
+}
+.form-select { background: rgba(255,255,255,0.02); color: #e8eefb; border-radius:10px; border: 1px solid rgba(255,255,255,0.02); }
+
+/* responsiveness */
+@media (max-width: 992px) {
+  .site-header__input { min-width:220px; }
+  .today__temp .display-1 { font-size:3rem; }
+  .daily__list { gap: 10px; }
+  .today__content { padding:18px; }
+  .hourly { max-height: 420px; }
+}
+
+/* focus outlines accessible */
+button:focus, input:focus, select:focus, a:focus {
+  outline: 3px solid rgba(90,209,255,0.12);
+  outline-offset: 2px;
 }
