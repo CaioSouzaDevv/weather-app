@@ -1,4 +1,5 @@
 # Brief
+https://caiosouzadevv.github.io/weather-app/
 
 Your challenge is to build this weather app using the Open-Meteo API and make it look as close to the design as possible.
 
