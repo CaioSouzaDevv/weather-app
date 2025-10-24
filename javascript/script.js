@@ -1,5 +1,29 @@
 const selectInput = document.querySelector('input[name="search-city"]');
 const btnSearch = document.querySelector('.site-header__btn-search');
+let titleCity = document.querySelector('.today__location');
+
+
+
+// Função para normalizar nomes (remover acentos e espaços)
+function normalizeName(name) {
+    return name
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+}
+// Função para deixar nomes com a primeira letra maiúscula (da palavra);
+function capitalize(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+}
+
+// Função para deixar nomes com a primeira letra maiúscula (de cada palavra);
+
+function capitalizeAll(name) {
+    return name
+        .split(' ')
+        .map(word => capitalize(word))
+        .join(' ');
+}
 
 // Função de carregamento da API
 async function loading(lat, lon) {
@@ -24,14 +48,6 @@ async function loading(lat, lon) {
     }
 }
 
-// Função para normalizar nomes (remover acentos e espaços)
-function normalizeName(name) {
-    return name
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
-}
-
 // Função de busca
 function searchCity() {
     btnSearch.addEventListener('click', async function (e) {
@@ -43,6 +59,9 @@ function searchCity() {
         try {
             const apiUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${userCity}`;
             const response = await fetch(apiUrl);
+
+            titleCity.textContent = capitalizeAll(selectInput.value.trim());
+
 
             if (!response.ok) {
                 throw new Error(`Erro HTTP: ${response.status}`);
