@@ -1,8 +1,13 @@
 const selectInput = document.querySelector('input[name="search-city"]');
 const btnSearch = document.querySelector('.site-header__btn-search');
-let titleCity = document.querySelector('.today__location');
 
-
+// Elementos do HTML
+const titleCity = document.querySelector('.today__location');
+let temperatureEl = document.querySelector('.today__temp p.today__temp-temperature');
+let windEl = document.querySelectorAll('.stat__value')[2]; // Terceiro card → Wind
+let thernalSensation = document.querySelectorAll('.stat__value')[0]; // Primeiro card → Feels Like
+let humidityEl = document.querySelectorAll('.stat__value')[1];
+let precipitationEl = document.querySelectorAll('.stat__value')[3];
 
 // Função para normalizar nomes (remover acentos e espaços)
 function normalizeName(name) {
@@ -11,13 +16,13 @@ function normalizeName(name) {
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
 }
-// Função para deixar nomes com a primeira letra maiúscula (da palavra);
+
+// Função para deixar nomes com a primeira letra maiúscula
 function capitalize(word) {
     return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 }
 
-// Função para deixar nomes com a primeira letra maiúscula (de cada palavra);
-
+// Função para deixar nomes com a primeira letra maiúscula de cada palavra
 function capitalizeAll(name) {
     return name
         .split(' ')
@@ -25,43 +30,60 @@ function capitalizeAll(name) {
         .join(' ');
 }
 
-// Função de carregamento da API
+// Função de carregamento da API de clima
 async function loading(lat, lon) {
     try {
-        const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m`;
+        // Requisição da previsão atual
+const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,wind_speed_10m,relative_humidity_2m,precipitation`;
         const response = await fetch(apiUrl);
 
-        // Verifica se a resposta foi bem-sucedida
         if (!response.ok) {
             throw new Error(`Erro HTTP: ${response.status}`);
         }
 
         const data = await response.json();
+        console.log('Dados do clima:', data);
 
-        console.log('Latitude:', lat);
-        console.log('Longitude:', lon);
-        console.log('Temperatura:', data.current.temperature_2m, '°C');
-        console.log('Vento:', data.current.wind_speed_10m, 'km/h');
+        // Atualiza a temperatura
+        if (temperatureEl) {
+            temperatureEl.textContent = `${data.current.temperature_2m} °C`;
+        }
+
+        if (humidityEl) {
+    humidityEl.textContent = `${data.current.relative_humidity_2m}%`;
+}
+
+if (precipitationEl) {
+    precipitationEl.textContent = `${data.current.precipitation} mm/h`;
+}
+
+        // Atualiza sensação térmica (Feels Like)
+        if (thernalSensation) {
+            thernalSensation.textContent = `${data.current.apparent_temperature} °C`;
+        }
+
+        // Atualiza o vento
+        if (windEl) {
+            windEl.textContent = `${data.current.wind_speed_10m} km/h`;
+        }
 
     } catch (error) {
         console.error('Erro ao carregar dados do clima:', error.message);
+        alert('Erro ao carregar dados do clima. Verifique sua internet ou tente novamente.');
     }
 }
 
-// Função de busca
+// Função de busca de cidade
 function searchCity() {
     btnSearch.addEventListener('click', async function (e) {
         e.preventDefault();
 
-        const userCity = normalizeName(selectInput.value);
+        const userCity = normalizeName(selectInput.value.trim());
         console.log('Cidade digitada:', userCity);
 
         try {
             const apiUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${userCity}`;
             const response = await fetch(apiUrl);
-
-            titleCity.textContent = capitalizeAll(selectInput.value.trim());
-
 
             if (!response.ok) {
                 throw new Error(`Erro HTTP: ${response.status}`);
@@ -70,22 +92,31 @@ function searchCity() {
             const data = await response.json();
 
             if (data.results && data.results.length > 0) {
+                // Busca cidade exata
                 const city = data.results.find(e => normalizeName(e.name) === userCity);
 
                 if (city) {
+                    // Atualiza o título da cidade
+                    titleCity.textContent = capitalizeAll(city.name);
+
                     const lat = city.latitude;
                     const lon = city.longitude;
                     console.log('Coordenadas:', lat, lon);
+
+                    // Carrega os dados do clima
                     loading(lat, lon);
                 } else {
-                    console.log("Cidade não encontrada na API");
+                    alert('Digite uma cidade válida');
+                    console.log('Cidade não encontrada na API');
                 }
             } else {
-                console.log("Nenhum resultado encontrado");
+                alert('Nenhum resultado encontrado');
+                console.log('Nenhum resultado encontrado');
             }
 
         } catch (error) {
             console.error('Erro ao buscar cidade:', error.message);
+            alert('Erro ao buscar cidade. Verifique sua internet ou tente novamente.');
         }
     });
 }
