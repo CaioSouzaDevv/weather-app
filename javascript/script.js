@@ -48,23 +48,20 @@ async function testHourly(lat, lon) {
 
     hourlyList.innerHTML = '';
 
-  for (let i = 0; i < 24; i++) {
-    const hour = times[i].split("T")[1].split(":")[0];
-    const formattedHour = `${hour}h`;
+    for (let i = 0; i < 24; i++) {
+        const hour = times[i].split("T")[1].split(":")[0];
+        const formattedHour = `${hour}h`;
 
-    // Precipitação da hora atual
-    const precipitationRain = data.hourly.precipitation[i];
+        const precipitationRain = data.hourly.precipitation[i];
 
-    // Escolhe o ícone conforme a chuva
-    const iconSrc = precipitationRain > 0
-        ? './assets/images/icon-rain.webp'
-        : './assets/images/icon-overcast.webp';
+        const iconSrc = precipitationRain > 0
+            ? './assets/images/icon-rain.webp'
+            : './assets/images/icon-overcast.webp';
 
-    // Cria o li com o ícone correto
-    const li = document.createElement('li');
-    li.classList.add('hourly__item', 'd-flex', 'justify-content-between', 'align-items-center', 'py-2', 'px-3', 'rounded', 'mb-2');
+        const li = document.createElement('li');
+        li.classList.add('hourly__item', 'd-flex', 'justify-content-between', 'align-items-center', 'py-2', 'px-3', 'rounded', 'mb-2');
 
-    li.innerHTML = `
+        li.innerHTML = `
       <div class="d-flex align-items-center gap-2">
         <time class="small text-secondary">${formattedHour}</time>
         <img src="${iconSrc}" alt="weather icon" width="22">
@@ -72,8 +69,8 @@ async function testHourly(lat, lon) {
       <data class="fw-semibold">${temperatures[i]} °C</data>
     `;
 
-    hourlyList.appendChild(li);
-}
+        hourlyList.appendChild(li);
+    }
 
 }
 
