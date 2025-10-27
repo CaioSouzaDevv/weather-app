@@ -65,7 +65,7 @@
                                     <p class="today__date small text-secondary mb-0">Tuesday, Aug 5, 2025</p>
                                 </div>
                                 <div class="today__temp text-end">
-                                    <p class="display-1 fw-bold mb-0">68°</p>
+                                    <p class="today__temp-temperature fw-bold mb-0">68°</p>
                                 </div>
                             </div>
                             <div class="mt-4">
@@ -110,7 +110,16 @@
                         <h3 class="daily__title text-light mb-3">Daily forecast</h3>
 
                         <div class="daily__list d-flex gap-3 flex-row flex-nowrap overflow-auto pb-2">
-                            <!-- Each day card (7) -->
+
+                            <article class="day card day--small rounded-3 p-3 text-center text-light">
+                                <p class="day__label small text-secondary mb-2">Mon</p>
+                                <img src="./assets/images/icon-overcast.webp" alt="wind/waves" width="36" class="mb-2">
+                                <div class="d-flex justify-content-between mt-2 small text-secondary">
+                                    <data class="day__max">75°</data><data class="day__min">59°</data>
+                                </div>
+                            </article>
+
+
                             <article class="day card day--small rounded-3 p-3 text-center text-light">
                                 <p class="day__label small text-secondary mb-2">Tue</p>
                                 <img src="./assets/images/icon-rain.svg" alt="rain" width="36" class="mb-2">
@@ -121,7 +130,7 @@
 
                             <article class="day card day--small rounded-3 p-3 text-center text-light">
                                 <p class="day__label small text-secondary mb-2">Wed</p>
-                                <img src="./assets/images/icon-cloud.svg" alt="cloud" width="36" class="mb-2">
+                                <img src="./assets/images/icon-overcast.webp" alt="cloud" width="36" class="mb-2">
                                 <div class="d-flex justify-content-between mt-2 small text-secondary">
                                     <data class="day__max">70°</data><data class="day__min">59°</data>
                                 </div>
@@ -153,19 +162,13 @@
 
                             <article class="day card day--small rounded-3 p-3 text-center text-light">
                                 <p class="day__label small text-secondary mb-2">Sun</p>
-                                <img src="./assets/images/icon-cloud.svg" alt="cloud" width="36" class="mb-2">
+                                <img src="./assets/images/icon-overcast.webp" alt="cloud" width="36" class="mb-2">
                                 <div class="d-flex justify-content-between mt-2 small text-secondary">
                                     <data class="day__max">77°</data><data class="day__min">61°</data>
                                 </div>
                             </article>
 
-                            <article class="day card day--small rounded-3 p-3 text-center text-light">
-                                <p class="day__label small text-secondary mb-2">Mon</p>
-                                <img src="./assets/images/icon-waves.svg" alt="wind/waves" width="36" class="mb-2">
-                                <div class="d-flex justify-content-between mt-2 small text-secondary">
-                                    <data class="day__max">75°</data><data class="day__min">59°</data>
-                                </div>
-                            </article>
+
                         </div>
                     </section>
                 </section>
@@ -187,71 +190,71 @@
                             <li
                                 class="hourly__item d-flex justify-content-between align-items-center py-2 px-3 rounded mb-2">
                                 <div class="d-flex align-items-center gap-2">
-                                    <img src="./assets/images/icon-cloud.svg" alt="" width="22">
                                     <time class="small text-secondary">3 PM</time>
+                                    <img src="./assets/images/icon-overcast.webp" alt="" width="22" class="image__preciptation">
                                 </div>
                                 <data class="fw-semibold">68°</data>
                             </li>
 
                             <li
-                                class="hourly__item d-flex justify-content-between align-items-center py-2 px-3 rounded mb-2">
+                                class="hourly__item  py-2 px-3 rounded mb-2">
                                 <div class="d-flex align-items-center gap-2">
-                                    <img src="./assets/images/icon-sun-cloud.svg" alt="" width="22">
                                     <time class="small text-secondary">4 PM</time>
+                                    <img src="./assets/images/icon-overcast.webp" alt="" width="22" class="image__preciptation">
                                 </div>
                                 <data class="fw-semibold">68°</data>
                             </li>
 
                             <li
-                                class="hourly__item d-flex justify-content-between align-items-center py-2 px-3 rounded mb-2">
+                                class="hourly__item  py-2 px-3 rounded mb-2">
                                 <div class="d-flex align-items-center gap-2">
-                                    <img src="./assets/images/icon-sun.svg" alt="" width="22">
                                     <time class="small text-secondary">5 PM</time>
+                                    <img src="./assets/images/icon-overcast.webp" alt="" width="22" class="image__preciptation">
                                 </div>
                                 <data class="fw-semibold">68°</data>
                             </li>
 
                             <li
-                                class="hourly__item d-flex justify-content-between align-items-center py-2 px-3 rounded mb-2">
+                                class="hourly__item  py-2 px-3 rounded mb-2">
                                 <div class="d-flex align-items-center gap-2">
-                                    <img src="./assets/images/icon-cloud.svg" alt="" width="22">
                                     <time class="small text-secondary">6 PM</time>
+                                    <img src="./assets/images/icon-overcast.webp" alt="" width="22" class="image__preciptation">
                                 </div>
                                 <data class="fw-semibold">66°</data>
                             </li>
 
                             <li
-                                class="hourly__item d-flex justify-content-between align-items-center py-2 px-3 rounded mb-2">
+                                class="hourly__item  py-2 px-3 rounded mb-2">
                                 <div class="d-flex align-items-center gap-2">
-                                    <img src="./assets/images/icon-rain.svg" alt="" width="22">
                                     <time class="small text-secondary">7 PM</time>
+                                    <img src="./assets/images/icon-overcast.webp" alt="" width="22" class="image__preciptation">
                                 </div>
                                 <data class="fw-semibold">66°</data>
                             </li>
 
                             <li
-                                class="hourly__item d-flex justify-content-between align-items-center py-2 px-3 rounded mb-2">
+                                class="hourly__item  py-2 px-3 rounded mb-2">
                                 <div class="d-flex align-items-center gap-2">
-                                    <img src="./assets/images/icon-waves.svg" alt="" width="22">
                                     <time class="small text-secondary">8 PM</time>
+                                    <img src="./assets/images/icon-overcast.webp" alt="" width="22" class="image__preciptation">
                                 </div>
                                 <data class="fw-semibold">64°</data>
                             </li>
 
                             <li
-                                class="hourly__item d-flex justify-content-between align-items-center py-2 px-3 rounded mb-2">
+                                class="hourly__item  py-2 px-3 rounded mb-2">
                                 <div class="d-flex align-items-center gap-2">
-                                    <img src="./assets/images/icon-cloud.svg" alt="" width="22">
                                     <time class="small text-secondary">9 PM</time>
+                                    <img src="./assets/images/icon-overcast.webp" alt="" width="22" class="image__preciptation">
                                 </div>
                                 <data class="fw-semibold">63°</data>
                             </li>
 
                             <li
-                                class="hourly__item d-flex justify-content-between align-items-center py-2 px-3 rounded">
+                                class="hourly__item  py-2 px-3 rounded">
                                 <div class="d-flex align-items-center gap-2">
-                                    <img src="./assets/images/icon-cloud.svg" alt="" width="22">
                                     <time class="small text-secondary">10 PM</time>
+                                    <img src="./assets/images/icon-overcast.webp" alt="" width="22" class="image__preciptation">
                                 </div>
                                 <data class="fw-semibold">63°</data>
                             </li>

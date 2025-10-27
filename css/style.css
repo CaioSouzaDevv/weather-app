@@ -68,8 +68,6 @@ body {
   line-height:1.35;
 }
 
-/* container width */
-.container { max-width:1180px; }
 
 /* Header */
 .site-header__inner { margin-top: 8px; margin-bottom: 8px; }
@@ -109,7 +107,7 @@ body {
 .today__date { color: var(--muted); margin:0; }
 
 /* temperature */
-.today__temp .display-1 { font-size:4.5rem; line-height:0.9; color:#fff; }
+.today__temp .today__temp-temperature { font-size:4.5rem; line-height:0.9; color:#fff; }
 
 /* stat cards inside main */
 .stat {
