@@ -29,12 +29,57 @@ function capitalizeAll(name) {
         .map(word => capitalize(word))
         .join(' ');
 }
+async function testHourly(lat, lon) {
+    const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m&forecast_days=1&timezone=America/Sao_Paulo`;
+
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+
+    const times = data.hourly.time;
+    const temperatures = data.hourly.temperature_2m;
+
+    const hourlyList = document.querySelector('.hourly__list');
+
+    hourlyList.innerHTML = '';
+
+    for (let i = 0; i < 12; i++) {
+        const hour = times[i].split("T")[1].split(":")[0];
+        const formattedHour = `${hour}h`;
+
+        const li = document.createElement('li');
+        li.classList.add('hourly__item', 'd-flex', 'justify-content-between', 'align-items-center', 'py-2', 'px-3', 'rounded', 'mb-2');
+
+        li.innerHTML = `
+      <div class="d-flex align-items-center gap-2">
+        <img src="./assets/images/icon-sun.svg" alt="weather icon" width="22">
+        <time class="small text-secondary">${formattedHour}</time>
+      </div>
+      <data class="fw-semibold">${temperatures[i]} °C</data>
+    `;
+
+        hourlyList.appendChild(li);
+    }
+}
+
+
+async function testDaily(lat, lon) {
+    const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=America/Sao_Paulo`;
+
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+
+
+
+    console.log('Dados do daily:', data.daily);
+
+}
+
 
 // Função de carregamento da API de clima
 async function loading(lat, lon) {
     try {
         // Requisição da previsão atual
-const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,wind_speed_10m,relative_humidity_2m,precipitation`;
+        const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,wind_speed_10m,relative_humidity_2m,precipitation`;
         const response = await fetch(apiUrl);
 
         if (!response.ok) {
@@ -50,12 +95,12 @@ const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude
         }
 
         if (humidityEl) {
-    humidityEl.textContent = `${data.current.relative_humidity_2m}%`;
-}
+            humidityEl.textContent = `${data.current.relative_humidity_2m}%`;
+        }
 
-if (precipitationEl) {
-    precipitationEl.textContent = `${data.current.precipitation} mm/h`;
-}
+        if (precipitationEl) {
+            precipitationEl.textContent = `${data.current.precipitation} mm/h`;
+        }
 
         // Atualiza sensação térmica (Feels Like)
         if (thernalSensation) {
@@ -105,6 +150,8 @@ function searchCity() {
 
                     // Carrega os dados do clima
                     loading(lat, lon);
+                    testHourly(lat, lon);
+                    testDaily(lat, lon);
                 } else {
                     alert('Digite uma cidade válida');
                     console.log('Cidade não encontrada na API');

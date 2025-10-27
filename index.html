@@ -110,7 +110,16 @@
                         <h3 class="daily__title text-light mb-3">Daily forecast</h3>
 
                         <div class="daily__list d-flex gap-3 flex-row flex-nowrap overflow-auto pb-2">
-                            <!-- Each day card (7) -->
+
+                            <article class="day card day--small rounded-3 p-3 text-center text-light">
+                                <p class="day__label small text-secondary mb-2">Mon</p>
+                                <img src="./assets/images/icon-waves.svg" alt="wind/waves" width="36" class="mb-2">
+                                <div class="d-flex justify-content-between mt-2 small text-secondary">
+                                    <data class="day__max">75°</data><data class="day__min">59°</data>
+                                </div>
+                            </article>
+
+
                             <article class="day card day--small rounded-3 p-3 text-center text-light">
                                 <p class="day__label small text-secondary mb-2">Tue</p>
                                 <img src="./assets/images/icon-rain.svg" alt="rain" width="36" class="mb-2">
@@ -159,13 +168,7 @@
                                 </div>
                             </article>
 
-                            <article class="day card day--small rounded-3 p-3 text-center text-light">
-                                <p class="day__label small text-secondary mb-2">Mon</p>
-                                <img src="./assets/images/icon-waves.svg" alt="wind/waves" width="36" class="mb-2">
-                                <div class="d-flex justify-content-between mt-2 small text-secondary">
-                                    <data class="day__max">75°</data><data class="day__min">59°</data>
-                                </div>
-                            </article>
+
                         </div>
                     </section>
                 </section>
