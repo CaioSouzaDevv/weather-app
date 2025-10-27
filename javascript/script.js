@@ -30,7 +30,7 @@ function capitalizeAll(name) {
         .join(' ');
 }
 async function testHourly(lat, lon) {
-    const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m&forecast_days=1&timezone=America/Sao_Paulo`;
+    const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=-23.55&longitude=-46.63&hourly=temperature_2m,precipitation&forecast_days=1&timezone=America/Sao_Paulo`;
 
     const response = await fetch(apiUrl);
     const data = await response.json();
@@ -38,27 +38,43 @@ async function testHourly(lat, lon) {
     const times = data.hourly.time;
     const temperatures = data.hourly.temperature_2m;
 
+    let imagePreciptation = document.querySelectorAll('.image__preciptation');
+
+    const dataHourly = data.hourly;
+
+    console.log('Dados do dataHourly', dataHourly)
+
     const hourlyList = document.querySelector('.hourly__list');
 
     hourlyList.innerHTML = '';
 
-    for (let i = 0; i < 12; i++) {
-        const hour = times[i].split("T")[1].split(":")[0];
-        const formattedHour = `${hour}h`;
+  for (let i = 0; i < 24; i++) {
+    const hour = times[i].split("T")[1].split(":")[0];
+    const formattedHour = `${hour}h`;
 
-        const li = document.createElement('li');
-        li.classList.add('hourly__item', 'd-flex', 'justify-content-between', 'align-items-center', 'py-2', 'px-3', 'rounded', 'mb-2');
+    // Precipitação da hora atual
+    const precipitationRain = data.hourly.precipitation[i];
 
-        li.innerHTML = `
+    // Escolhe o ícone conforme a chuva
+    const iconSrc = precipitationRain > 0
+        ? './assets/images/icon-rain.webp'
+        : './assets/images/icon-overcast.webp';
+
+    // Cria o li com o ícone correto
+    const li = document.createElement('li');
+    li.classList.add('hourly__item', 'd-flex', 'justify-content-between', 'align-items-center', 'py-2', 'px-3', 'rounded', 'mb-2');
+
+    li.innerHTML = `
       <div class="d-flex align-items-center gap-2">
-        <img src="./assets/images/icon-sun.svg" alt="weather icon" width="22">
         <time class="small text-secondary">${formattedHour}</time>
+        <img src="${iconSrc}" alt="weather icon" width="22">
       </div>
       <data class="fw-semibold">${temperatures[i]} °C</data>
     `;
 
-        hourlyList.appendChild(li);
-    }
+    hourlyList.appendChild(li);
+}
+
 }
 
 
