@@ -76,46 +76,46 @@ async function testHourly(lat, lon) {
 
 
 async function testDaily(lat, lon) {
-  const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=America/Sao_Paulo`;
+    const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=America/Sao_Paulo`;
 
-  const response = await fetch(apiUrl);
-  const data = await response.json();
+    const response = await fetch(apiUrl);
+    const data = await response.json();
 
-  const cardDays = document.querySelectorAll('.day');
+    const cardDays = document.querySelectorAll('.day');
 
-  for (let i = 0; i < 7; i++) {
-    const date = new Date(data.daily.time[i]);
-    const temperatureMax = data.daily.temperature_2m_max[i];
-    const temperatureMin = data.daily.temperature_2m_min[i];
-    const rain = data.daily.precipitation_sum[i]; // 💧 chuva
-    const dayNumber = date.getDay();
-
-  
-    const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
-    const dayName = daysOfWeek[dayNumber];
+    for (let i = 0; i < 7; i++) {
+        const date = new Date(data.daily.time[i]);
+        const temperatureMax = data.daily.temperature_2m_max[i];
+        const temperatureMin = data.daily.temperature_2m_min[i];
+        const rain = data.daily.precipitation_sum[i]; // 💧 chuva
+        const dayNumber = date.getDay();
 
 
-    const iconSrc = rain > 0
-      ? './assets/images/icon-rain.webp'
-      : './assets/images/icon-sunny.webp';
+        const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+        const dayName = daysOfWeek[dayNumber];
 
-    if (cardDays[i]) {
-      const label = cardDays[i].querySelector('.day__label');
-      const tempMax = cardDays[i].querySelector('.day__max');
-      const tempMin = cardDays[i].querySelector('.day__min');
-      const img = cardDays[i].querySelector('img');
 
-      label.textContent = dayName;
-      tempMax.textContent = `${temperatureMax}°`;
-      tempMin.textContent = `${temperatureMin}°`;
-      img.src = iconSrc;
-      img.alt = rain > 0 ? 'Rain' : 'Sunny';
+        const iconSrc = rain > 0
+            ? './assets/images/icon-rain.webp'
+            : './assets/images/icon-sunny.webp';
+
+        if (cardDays[i]) {
+            const label = cardDays[i].querySelector('.day__label');
+            const tempMax = cardDays[i].querySelector('.day__max');
+            const tempMin = cardDays[i].querySelector('.day__min');
+            const img = cardDays[i].querySelector('img');
+
+            label.textContent = dayName;
+            tempMax.textContent = `${temperatureMax}°`;
+            tempMin.textContent = `${temperatureMin}°`;
+            img.src = iconSrc;
+            img.alt = rain > 0 ? 'Rain' : 'Sunny';
+        }
+
+        console.log(`${dayName}: Máx ${temperatureMax}° / Mín ${temperatureMin}° / Chuva ${rain}mm`);
     }
 
-    console.log(`${dayName}: Máx ${temperatureMax}° / Mín ${temperatureMin}° / Chuva ${rain}mm`);
-  }
-
-  console.log('Dados do daily:', data.daily);
+    console.log('Dados do daily:', data.daily);
 }
 
 
