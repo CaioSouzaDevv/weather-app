@@ -8,6 +8,11 @@ let windEl = document.querySelectorAll('.stat__value')[2]; // Terceiro card → 
 let thernalSensation = document.querySelectorAll('.stat__value')[0]; // Primeiro card → Feels Like
 let humidityEl = document.querySelectorAll('.stat__value')[1];
 let precipitationEl = document.querySelectorAll('.stat__value')[3];
+const showHeader = document.querySelector('.site-header');
+
+// Inicialmente centralizado
+showHeader.classList.add("centralize");
+
 
 // Função para normalizar nomes (remover acentos e espaços)
 function normalizeName(name) {
@@ -172,11 +177,21 @@ function searchCity() {
     btnSearch.addEventListener('click', async function (e) {
         e.preventDefault();
 
+
+          // Depois que a cidade é encontrada, sobe o header
+showHeader.classList.remove("centralize");
+showHeader.classList.add("centralize-up");
+    // Mostra o main
+    document.querySelector('.site-main').style.display = "block";
+
+   
         const userCity = normalizeName(selectInput.value.trim());
 
         try {
             const apiUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${userCity}`;
             const response = await fetch(apiUrl);
+
+            
 
             if (!response.ok) {
                 throw new Error(`Erro HTTP: ${response.status}`);
@@ -195,10 +210,15 @@ function searchCity() {
                     const lat = city.latitude;
                     const lon = city.longitude;
 
+
+
+
                     // Carrega os dados do clima
                     loading(lat, lon);
                     testHourly(lat, lon);
                     testDaily(lat, lon);
+                                                showHeader.classList.remove("centralize-absolute");
+
                 } else {
                     alert('Digite uma cidade válida');
                 }

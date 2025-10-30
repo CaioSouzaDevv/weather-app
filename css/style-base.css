@@ -11,8 +11,12 @@
 
 body {
     background-color: var(--secondary-color);
-}
+      transition: transform 1s ease, min-height 1s ease;
 
+}
+input {
+    color: #fff;
+}
 .wrapper {
     width: 100%;
     max-width: 1280px;

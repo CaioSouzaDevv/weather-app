@@ -19,7 +19,7 @@
 
     <header class="site-header">
         <div class="container">
-            <div class="site-header__inner d-flex align-items-center justify-content-between py-4">
+            <div class="site-header__inner d-flex  align-items-center justify-content-center py-4 flex-column flex-sm-row">
                 <a href="#" class="site-header__brand d-flex align-items-center gap-2 text-decoration-none"
                     aria-label="Weather Now">
                  
@@ -27,27 +27,27 @@
                     <span class="site-header__title text-light fw-bold"></span>
                 </a>
 
-                <div class="site-header__right d-flex align-items-center gap-3">
+                <div class="site-header__right d-flex align-items-center gap-3 flex-column flex-sm-row">
                     <form class="site-header__search d-flex align-items-center" role="search"
                         aria-label="Search location">
                         <label for="search-city" class="visually-hidden">Search city</label>
-                        <input id="search-city" name="search-city"
+                        <input id="search-city" placeholder="Search for a place..." name="search-city"
                             class="form-control site-header__input bg-dark text-light border-0 me-2" type="search"
                             placeholder="Search for a place...">
                         <button class="btn btn-primary site-header__btn-search" value="" type="submit">Search</button>
                     </form>
 
-                    <div class="site-header__units btn-group" role="group" aria-label="Temperature units">
+                    <!-- <div class="site-header__units btn-group" role="group" aria-label="Temperature units">
                         <button type="button"
                             class="btn btn-outline-light site-header__unit site-header__unit--active">°F</button>
                         <button type="button" class="btn btn-outline-light site-header__unit">°C</button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
     </header>
 
-    <main class="site-main">
+    <main class="site-main" style="display: none;">
         <div class="container">
             <div class="site-main__intro text-center text-light my-4">
                 <h1 class="site-main__headline mb-2">How’s the sky looking today?</h1>
@@ -110,7 +110,7 @@
                     <section class="daily mt-4">
                         <h3 class="daily__title text-light mb-3">Daily forecast</h3>
 
-                        <div class="daily__list d-flex gap-3 flex-row flex-nowrap pb-2">
+                        <div class="daily__list d-flex flex-column flex-md-row gap-3 flex-row flex-nowrap pb-2">
 
                             <article class="day card day--small rounded-3 p-3 text-center text-light">
                                 <p class="day__label small white mb-2">Mon</p>
@@ -182,7 +182,7 @@
                 </section>
 
                 <!-- SIDE COLUMN (4 cols) -->
-                <aside class="col-12 col-lg-4">
+                <aside class="col-12 col-lg-4 mb-5">
                     <!-- Hourly long list card -->
                     <section class="hourly card rounded-4 p-3 bg-dark text-light border-0">
                         <div class="d-flex justify-content-between align-items-center mb-3">

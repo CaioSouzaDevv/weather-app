@@ -56,8 +56,36 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 4px 14px rgba(106,93,246,0.4);
 }
-
+@media (max-width: 576px) {
+  .site-header__input {
+    min-width: auto; /* deixa encolher */
+    width: 100%;     /* ocupa toda a largura disponível */
+  }
+}
 /* MAIN intro */
+.site-header {
+  transition: transform 1s ease, min-height 1s ease;
+}
+
+.site-header.centralize {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(0); /* Começa centralizado */
+}
+
+.site-header.centralize-up {
+  min-height: 200px; /* altura final menor */
+  transform: translateY(-0vh); /* sobe suavemente */
+  
+}
+
+.site-header__input::placeholder {
+  color: #98a0b0; /* ou qualquer cor que você quiser */
+  opacity: 1;     /* garante que a cor não fique apagada */
+}
+
 .site-main__headline { 
   font-size: 2.2rem; 
   font-weight:700; 
