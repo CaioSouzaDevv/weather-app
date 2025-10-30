@@ -35,7 +35,7 @@ function capitalizeAll(name) {
         .join(' ');
 }
 async function testHourly(lat, lon) {
-    const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=-23.55&longitude=-46.63&hourly=temperature_2m,precipitation&forecast_days=1&timezone=America/Sao_Paulo`;
+    const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,precipitation&forecast_days=1&timezone=America/Sao_Paulo`;
 
     const response = await fetch(apiUrl);
     const data = await response.json();
