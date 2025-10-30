@@ -1,48 +1,5 @@
-
-/* header components */
-.settings {
-    background-color: var(--primary-color);
-    height: 40px;
-    display: flex;
-    align-items: center;
-    padding: 20px 30px;
-    gap: 10px;
-    color: #fff;
-    border-radius: 10px;
-}
-.settings .settings__icon {
-
-}
-/* end header components */
-
-
-/* today styles */
-.card-today {
-    padding: 70px 10px;
-    position: relative;
-    background-image: url(../assets/images/bg-today-large.svg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
-    border-radius: 20px;
-}
-.card-today .card-today__temperature {
-    display: flex;
-}
-.card-today .card-today__temperature img{
-    width: 120px;
-    object-fit: contain;
-}
-.card-today .card-today__temperature span{
-    color: #fff;
-    
-}
-
-/* End today styles */
-
-
 /* =========================
-   style.css — Weather Now EXACT
+   style.css — Weather Now (Enhanced)
    BEM + Bootstrap overrides
    ========================= */
 
@@ -66,8 +23,17 @@ body {
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   line-height:1.35;
+  transition: background 0.4s ease;
 }
 
+/* Subtle fade-in on page load */
+body {
+  opacity: 0;
+  animation: fadeInBody 1s ease forwards;
+}
+@keyframes fadeInBody {
+  to { opacity: 1; }
+}
 
 /* Header */
 .site-header__inner { margin-top: 8px; margin-bottom: 8px; }
@@ -77,11 +43,32 @@ body {
   border-radius: 14px;
   padding: 12px 16px;
   background: rgba(255,255,255,0.03);
+  transition: background 0.3s ease;
 }
-.site-header__btn-search { border-radius: 12px; }
+.site-header__input:focus {
+  background: rgba(255,255,255,0.07);
+}
+.site-header__btn-search { 
+  border-radius: 12px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.site-header__btn-search:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(106,93,246,0.4);
+}
 
 /* MAIN intro */
-.site-main__headline { font-size: 2.2rem; font-weight:700; color:#f8fbff; }
+.site-main__headline { 
+  font-size: 2.2rem; 
+  font-weight:700; 
+  color:#f8fbff;
+  animation: slideUp 0.8s ease forwards;
+  opacity: 0;
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 /* TODAY large card */
 .today {
@@ -90,6 +77,12 @@ body {
   box-shadow: 0 12px 40px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.03);
   overflow:hidden;
   position:relative;
+  transform: translateY(10px);
+  opacity: 0;
+  animation: slideFade 1s ease 0.3s forwards;
+}
+@keyframes slideFade {
+  to { opacity: 1; transform: translateY(0); }
 }
 .today__bg {
   position:absolute;
@@ -107,7 +100,7 @@ body {
 .today__date { color: var(--muted); margin:0; }
 
 /* temperature */
-.today__temp .today__temp-temperature { font-size:4.5rem; line-height:0.9; color:#fff; }
+.today__temp .today__temp-temperature { font-size:4.5rem; line-height:0.9; color:#fff; transition: color 0.3s ease; }
 
 /* stat cards inside main */
 .stat {
@@ -115,12 +108,18 @@ body {
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.03);
   box-shadow: 0 6px 18px rgba(2,6,23,0.45);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+.stat:hover {
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.05);
 }
 .stat__label { color: var(--muted); }
 .stat__value { color:#fff; }
 
 /* daily list */
 .daily__list { padding-bottom:6px; }
+
 .day {
   min-width:84px;
   background: rgba(255,255,255,0.02);
@@ -128,6 +127,18 @@ body {
   border: 1px solid rgba(255,255,255,0.03);
   padding:12px;
   box-shadow: 0 8px 20px rgba(2,6,23,0.45);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.day--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.day:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 10px 22px rgba(106,93,246,0.25);
+  cursor: pointer;
 }
 
 /* HOURLY SIDEBAR */
@@ -136,6 +147,8 @@ body {
   border-radius: 18px;
   border: 1px solid rgba(255,255,255,0.03);
   padding: 18px;
+  animation: slideUp 1s ease 0.6s forwards;
+  opacity: 0;
 }
 .hourly__list { margin:0; padding:0; }
 .hourly__item {
@@ -147,6 +160,11 @@ body {
   justify-content:space-between;
   align-items:center;
   border:1px solid rgba(255,255,255,0.02);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.hourly__item:hover {
+  background: rgba(255,255,255,0.05);
+  transform: translateX(3px);
 }
 .hourly__item time { color: var(--muted); }
 
@@ -160,6 +178,11 @@ body {
   border:none;
   border-radius:12px;
   padding:10px 18px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(106,93,246,0.4);
+  transform: translateY(-2px);
 }
 .form-select { background: rgba(255,255,255,0.02); color: #e8eefb; border-radius:10px; border: 1px solid rgba(255,255,255,0.02); }
 

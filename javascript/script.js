@@ -42,7 +42,6 @@ async function testHourly(lat, lon) {
 
     const dataHourly = data.hourly;
 
-    console.log('Dados do dataHourly', dataHourly)
 
     const hourlyList = document.querySelector('.hourly__list');
 
@@ -87,17 +86,21 @@ async function testDaily(lat, lon) {
         const date = new Date(data.daily.time[i]);
         const temperatureMax = data.daily.temperature_2m_max[i];
         const temperatureMin = data.daily.temperature_2m_min[i];
-        const rain = data.daily.precipitation_sum[i]; // 💧 chuva
+        const rain = data.daily.precipitation_sum[i];
         const dayNumber = date.getDay();
-
 
         const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
         const dayName = daysOfWeek[dayNumber];
 
-
-        const iconSrc = rain > 0
-            ? './assets/images/icon-rain.webp'
-            : './assets/images/icon-sunny.webp';
+        // 🌦️ Ternário com níveis de condição
+        const iconSrc =
+            rain === 0
+                ? './assets/images/icon-sunny.webp'
+                : rain <= 2
+                    ? './assets/images/icon-partly-cloudy.webp'
+                    : rain <= 10
+                        ? './assets/images/icon-rain.webp'
+                        : './assets/images/icon-storm.webp';
 
         if (cardDays[i]) {
             const label = cardDays[i].querySelector('.day__label');
@@ -109,13 +112,16 @@ async function testDaily(lat, lon) {
             tempMax.textContent = `${temperatureMax}°`;
             tempMin.textContent = `${temperatureMin}°`;
             img.src = iconSrc;
-            img.alt = rain > 0 ? 'Rain' : 'Sunny';
         }
 
-        console.log(`${dayName}: Máx ${temperatureMax}° / Mín ${temperatureMin}° / Chuva ${rain}mm`);
+        const days = document.querySelectorAll('.day');
+days.forEach((day, index) => {
+  setTimeout(() => {
+    day.classList.add('day--visible');
+  }, index * 100); // adiciona delay progressivo pra um efeito suave
+});
     }
 
-    console.log('Dados do daily:', data.daily);
 }
 
 
@@ -132,7 +138,6 @@ async function loading(lat, lon) {
         }
 
         const data = await response.json();
-        console.log('Dados do clima:', data);
 
         // Atualiza a temperatura
         if (temperatureEl) {
@@ -158,7 +163,6 @@ async function loading(lat, lon) {
         }
 
     } catch (error) {
-        console.error('Erro ao carregar dados do clima:', error.message);
         alert('Erro ao carregar dados do clima. Verifique sua internet ou tente novamente.');
     }
 }
@@ -169,7 +173,6 @@ function searchCity() {
         e.preventDefault();
 
         const userCity = normalizeName(selectInput.value.trim());
-        console.log('Cidade digitada:', userCity);
 
         try {
             const apiUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${userCity}`;
@@ -191,7 +194,6 @@ function searchCity() {
 
                     const lat = city.latitude;
                     const lon = city.longitude;
-                    console.log('Coordenadas:', lat, lon);
 
                     // Carrega os dados do clima
                     loading(lat, lon);
@@ -199,11 +201,9 @@ function searchCity() {
                     testDaily(lat, lon);
                 } else {
                     alert('Digite uma cidade válida');
-                    console.log('Cidade não encontrada na API');
                 }
             } else {
                 alert('Nenhum resultado encontrado');
-                console.log('Nenhum resultado encontrado');
             }
 
         } catch (error) {
